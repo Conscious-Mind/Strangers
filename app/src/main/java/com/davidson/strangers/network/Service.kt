@@ -3,6 +3,8 @@ package com.davidson.strangers.network
 import com.davidson.strangers.test.TestCase
 import com.davidson.strangers.test.WeatherTest
 import com.davidson.strangers.util.Constants.Companion.API_WEATHER_KEY_2
+import com.davidson.strangers.util.Constants.Companion.BASE_URL_RANDOM_USER_API
+import com.davidson.strangers.util.Constants.Companion.BASE_URL_WEATHERBIT_API
 import com.davidson.strangers.util.Constants.Companion.NUMBER_OF_USER_TO_FETCH
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -17,7 +19,12 @@ private val moshi = Moshi.Builder()
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl("https://randomuser.me/")
+    .baseUrl(BASE_URL_RANDOM_USER_API)
+    .build()
+
+private val retrofitWeather = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL_WEATHERBIT_API)
     .build()
 
 interface RandomUserService {
@@ -45,10 +52,5 @@ object RandomUserNetwork {
 }
 
 object WeatherNetwork {
-    private val retrofitWeather = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl("https://api.weatherbit.io/")
-        .build()
-
     val retrofitWeatherService: WeatherService by lazy { retrofitWeather.create(WeatherService::class.java) }
 }

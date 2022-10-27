@@ -1,7 +1,6 @@
 package com.davidson.strangers.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -17,7 +16,7 @@ interface StrangerDao {
     fun insertAll(strangers: List<DatabaseStranger>)
 
     @Query("SELECT * FROM databaseStranger WHERE strangerName like '%' ||:searchName || '%'")
-    fun search(searchName: String) : List<DatabaseStranger>
+    fun search(searchName: String): List<DatabaseStranger>
 
     @Query("DELETE FROM databaseStranger")
     fun deleteAll()
@@ -39,7 +38,11 @@ private lateinit var INSTANCE: StrangerDatabase
 fun getDatabase(context: Context): StrangerDatabase {
     synchronized(StrangerDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext, StrangerDatabase::class.java, "stranger").build()
+            INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
+                StrangerDatabase::class.java,
+                "stranger"
+            ).build()
         }
     }
     return INSTANCE

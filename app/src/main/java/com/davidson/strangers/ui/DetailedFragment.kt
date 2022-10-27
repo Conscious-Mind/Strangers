@@ -49,7 +49,7 @@ class DetailedFragment : Fragment() {
 
 
 
-        viewModel.address.observe(viewLifecycleOwner){
+        viewModel.address.observe(viewLifecycleOwner) {
             Toast.makeText(this.activity, "Getting Location", Toast.LENGTH_SHORT).show()
             viewModel.getWeather(it)
         }
@@ -72,8 +72,8 @@ class DetailedFragment : Fragment() {
         Toast.makeText(activity, "Activated Request", Toast.LENGTH_SHORT).show()
     }
 
-    fun getWeatherImgUrl(iconCode: String) : String {
-        val icon = iconCode?:"r01d"
+    fun getWeatherImgUrl(iconCode: String): String {
+        val icon = iconCode ?: "r01d"
         return "https://www.weatherbit.io/static/img/icons/${icon}.png"
     }
 }

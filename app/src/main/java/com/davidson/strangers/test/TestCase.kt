@@ -182,7 +182,7 @@ fun TestCase.asDomainModel(): List<StrangerPerson> {
     }
 }
 
-fun TestCase.asDatabaseModel(): List<DatabaseStranger>{
+fun TestCase.asDatabaseModel(): List<DatabaseStranger> {
     return results.map {
         DatabaseStranger(
             strangerName = "${it.name.first} ${it.name.last}",

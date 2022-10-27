@@ -1,8 +1,6 @@
 package com.davidson.strangers.database
 
 
-import android.provider.ContactsContract
-import androidx.lifecycle.Transformations.map
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.davidson.strangers.domain.StrangerPerson

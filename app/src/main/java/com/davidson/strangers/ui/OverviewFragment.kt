@@ -1,7 +1,6 @@
 package com.davidson.strangers.ui
 
 import android.content.Intent
-import android.media.audiofx.BassBoost.Settings
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -178,7 +177,7 @@ class OverviewFragment : Fragment() {
     }
 
     fun updateGps() {
-        Toast.makeText(activity, "Getting Location...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Getting Location from GPS", Toast.LENGTH_SHORT).show()
         locationUtil.requestCurrentLocation {
 //            val address = locationUtil.geoCoderConverter(it.latitude, it.longitude)
 //            viewModel.address.postValue(address)

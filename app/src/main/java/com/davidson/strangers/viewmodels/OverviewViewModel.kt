@@ -34,7 +34,6 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-
     private suspend fun refreshRepositoryUsingNetwork() {
         try {
             strangerRepository.refreshStrangerDb()
@@ -45,7 +44,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     fun getWeather(location: Location) {
         viewModelScope.launch {
-            strangerRepository.getWeatherDetailsFromNetworkForHome(location.latitude, location.longitude, API_WEATHER_KEY_2)
+            strangerRepository.getWeatherDetailsFromNetworkForHome(
+                location.latitude,
+                location.longitude,
+                API_WEATHER_KEY_2
+            )
         }
     }
 
