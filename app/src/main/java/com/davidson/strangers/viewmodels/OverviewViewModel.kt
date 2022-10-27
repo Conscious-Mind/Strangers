@@ -25,6 +25,8 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     val location = MutableLiveData<Location>()
 
+    private var weatherLoaded = false
+
     init {
         viewModelScope.launch {
             refreshRepositoryUsingNetwork()
@@ -49,5 +51,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     fun searchInStrangersList(strangerName: String) {
         strangerRepository.searchInDb(strangerName)
+    }
+
+    fun isWeatherLoaded(): Boolean = weatherLoaded
+
+    fun weatherLoaded() {
+        weatherLoaded = true
     }
 }

@@ -1,22 +1,29 @@
 package com.davidson.strangers.ui
 
+import android.content.Intent
+import android.media.audiofx.BassBoost.Settings
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.davidson.strangers.BuildConfig
 import com.davidson.strangers.MainActivity
+import com.davidson.strangers.R
 import com.davidson.strangers.adapter.RvStrangerViewAdapter
 import com.davidson.strangers.adapter.bindImage
 import com.davidson.strangers.databinding.FragmentOverviewBinding
 import com.davidson.strangers.util.LocationUtil
 import com.davidson.strangers.viewmodels.OverviewModelFactory
 import com.davidson.strangers.viewmodels.OverviewViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 class OverviewFragment : Fragment() {
@@ -26,6 +33,43 @@ class OverviewFragment : Fragment() {
     private lateinit var viewModel: OverviewViewModel
 
     private lateinit var locationUtil: LocationUtil
+
+    private var isSentToSettings = false
+
+    private val requestPermissionLauncher by lazy {
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            run {
+                if (isGranted) {
+                    Toast.makeText(activity, "Yes, Granted", Toast.LENGTH_SHORT)
+                    updateGps()
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        R.string.permission_denied_msg,
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setAction(R.string.settings) {
+                            isSentToSettings = true
+                            Toast.makeText(
+                                activity,
+                                "Grant Location Permission",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            goToAppSettings()
+                        }.show()
+                }
+            }
+        }
+    }
+
+    private fun goToAppSettings() {
+        val showAppSettingsIntent = Intent()
+        showAppSettingsIntent.action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+        showAppSettingsIntent.data = uri
+        showAppSettingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(showAppSettingsIntent)
+    }
 
 
     override fun onCreateView(
@@ -47,7 +91,11 @@ class OverviewFragment : Fragment() {
         val rvAdapterForHome = RvStrangerViewAdapter().also {
             it.setOnclickListenerR { strangerPerson ->
                 Toast.makeText(activity, strangerPerson.name, Toast.LENGTH_SHORT).show()
-                findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailedFragment(strangerPerson.id))
+                findNavController().navigate(
+                    OverviewFragmentDirections.actionOverviewFragmentToDetailedFragment(
+                        strangerPerson.id
+                    )
+                )
             }
         }
 
@@ -69,24 +117,20 @@ class OverviewFragment : Fragment() {
                     rvAdapterForHome.submitList(it)
                 }
                 isSearchingThroughDb = false
-            } else{
+            } else {
                 rvAdapterForHome.submitList(it)
             }
         }
 
-//        viewModel.address.observe(viewLifecycleOwner) {
-//            val text = "${it?.subAdminArea?:"null"}, ${it.countryName?:"null"}"
-//            binding.tvWeatherLocationHome.text = text
-//            Toast.makeText(activity, "getting air quality...", Toast.LENGTH_SHORT).show()
-//        }
 
-        viewModel.location.observe(viewLifecycleOwner){
+
+        viewModel.location.observe(viewLifecycleOwner) {
 //            Toast.makeText(this.activity, "Getting Location", Toast.LENGTH_SHORT).show()
             viewModel.getWeather(it)
         }
 
-        viewModel.weather.observe(viewLifecycleOwner){
-            binding.tvWeatherLocationHome.text  = it.cityName
+        viewModel.weather.observe(viewLifecycleOwner) {
+            binding.tvWeatherLocationHome.text = it.cityName
             binding.tvWeatherAqi.text = it.aqi.toString()
             val temp = "${it.temp.toInt()} °C"
             binding.tvWeatherTemp.text = temp
@@ -94,7 +138,7 @@ class OverviewFragment : Fragment() {
             bindImage(binding.ivWeatherHomeImg, getWeatherImgUrl(it.weatherIcon))
         }
 
-        binding.searchViewHome.setOnQueryTextListener(object: OnQueryTextListener{
+        binding.searchViewHome.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.searchInStrangersList(binding.searchViewHome.query.toString())
                 isSearchingThroughDb = true
@@ -111,7 +155,12 @@ class OverviewFragment : Fragment() {
 
         locationUtil = LocationUtil.getInstance((activity as (MainActivity)))
 
-        handleLocation()
+
+        if (!viewModel.isWeatherLoaded()) {
+            Toast.makeText(activity, "Weather Loading Started", Toast.LENGTH_SHORT).show()
+            handleLocation()
+            viewModel.weatherLoaded()
+        }
 
         return binding.root
     }
@@ -124,7 +173,7 @@ class OverviewFragment : Fragment() {
                 Toast.makeText(activity, "Turn On the the Location", Toast.LENGTH_SHORT).show()
             }
         } else {
-            locationUtil.requestLocationPermission()
+            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
@@ -134,19 +183,28 @@ class OverviewFragment : Fragment() {
 //            val address = locationUtil.geoCoderConverter(it.latitude, it.longitude)
 //            viewModel.address.postValue(address)
             viewModel.location.postValue(it)
+            viewModel.weatherLoaded()
         }
     }
 
-    fun getWeatherImgUrl(iconCode: String) : String {
-        val icon = iconCode?:"r01d"
+    fun getWeatherImgUrl(iconCode: String): String {
+        val icon = iconCode ?: "r01d"
         return "https://www.weatherbit.io/static/img/icons/${icon}.png"
     }
-
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         locationUtil.stopRequestingLocation()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isSentToSettings) {
+            if (locationUtil.isLocationUsable)
+                updateGps()
+            isSentToSettings = false
+        }
     }
 
 }
