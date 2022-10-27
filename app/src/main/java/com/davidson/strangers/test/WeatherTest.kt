@@ -20,28 +20,28 @@ data class WeatherTest(
         val cityName: String, // Raleigh
         @Json(name = "clouds")
         val clouds: Double, // 75
-        @Json(name = "country_code")
-        val countryCode: String, // US
-        @Json(name = "datetime")
-        val datetime: String, // 2017-08-28:17
-        @Json(name = "h_angle")
-        val hAngle: Double, // 0
+//        @Json(name = "country_code")
+//        val countryCode: String, // US
+//        @Json(name = "datetime")
+//        val datetime: String, // 2017-08-28:17
+//        @Json(name = "h_angle")
+//        val hAngle: Double, // 0
         @Json(name = "lat")
         val lat: Double, // 35.7721
         @Json(name = "lon")
         val lon: Double, // -78.63861
-        @Json(name = "ob_time")
-        val obTime: String, // 2017-08-28 16:45
+//        @Json(name = "ob_time")
+//        val obTime: String, // 2017-08-28 16:45
         @Json(name = "temp")
         val temp: Double, // 24.19
         @Json(name = "timezone")
         val timezone: String, // America/New_York
         @Json(name = "weather")
         val weather: Weather,
-        @Json(name = "wind_dir")
-        val windDir: Double, // 50
-        @Json(name = "wind_spd")
-        val windSpd: Double // 6.17
+//        @Json(name = "wind_dir")
+//        val windDir: Double, // 50
+//        @Json(name = "wind_spd")
+//        val windSpd: Double // 6.17
     ) {
         @JsonClass(generateAdapter = true)
         data class Weather(
