@@ -42,13 +42,15 @@ class DetailedFragment : Fragment() {
         viewModel.strangerDetails.observe(viewLifecycleOwner) { strangerPerson ->
 
             bindImage(binding.ivDetailedPicture, strangerPerson.pictureUrl)
+            requestLocationCoordinates(strangerPerson.houseCity)
         }
 
         locationUtil = LocationUtil.getInstance((activity as (MainActivity)))
 
-        viewModel.strangerDetails.value?.let { requestLocationCoordinates(it.houseCity) }
+
 
         viewModel.address.observe(viewLifecycleOwner){
+            Toast.makeText(this.activity, "Getting Location", Toast.LENGTH_SHORT).show()
             viewModel.getWeather(it)
         }
 
@@ -58,6 +60,7 @@ class DetailedFragment : Fragment() {
             val temp = "${it.temp.toInt()} °C"
             binding.tvWeatherTempDetailed.text = temp
             binding.tvWeatherDescDetailed.text = it.weatherDescription
+            bindImage(binding.ivWeatherDetailedImg, getWeatherImgUrl(it.weatherIcon))
         }
         return binding.root
     }
@@ -66,6 +69,11 @@ class DetailedFragment : Fragment() {
     fun requestLocationCoordinates(citName: String) {
         val address = locationUtil.geoCoderConverter(citName)
         viewModel.address.postValue(address)
-        Toast.makeText(activity, "Activated REquest", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Activated Request", Toast.LENGTH_SHORT).show()
+    }
+
+    fun getWeatherImgUrl(iconCode: String) : String {
+        val icon = iconCode?:"r01d"
+        return "https://www.weatherbit.io/static/img/icons/${icon}.png"
     }
 }

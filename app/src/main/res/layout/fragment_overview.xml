@@ -37,12 +37,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewHome"
             tools:itemCount="16"
             tools:listitem="@layout/stranger_single_card" />
 
@@ -107,19 +107,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/searchViewHome"
             android:layout_width="0dp"
+            app:queryBackground="@color/transparent"
+            android:background="@drawable/search_bar_lay"
+            app:iconifiedByDefault="false"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:queryHint="Search Here......" />
+            app:queryHint="Search for Name" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="666dp"
+            android:layout_marginBottom="65dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,17 +135,14 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvHome"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/navigation_button_bg" />
 
         <ImageButton
@@ -188,7 +190,7 @@
             android:text="AQI"
             android:textColor="@color/white"
             android:textSize="8sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            app:layout_constraintEnd_toStartOf="@+id/ivWeatherHomeImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -226,8 +228,8 @@
             android:textSize="8sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+            app:layout_constraintStart_toStartOf="@+id/ivWeatherHomeImg"
+            app:layout_constraintTop_toBottomOf="@+id/ivWeatherHomeImg" />
 
         <DigitalClock
             android:id="@+id/digitalClock"
@@ -255,7 +257,7 @@
             app:tint="@color/white" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/ivWeatherHomeImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

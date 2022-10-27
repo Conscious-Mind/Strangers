@@ -16,7 +16,7 @@ interface StrangerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(strangers: List<DatabaseStranger>)
 
-    @Query("SELECT * FROM databaseStranger WHERE strangerName like :searchName")
+    @Query("SELECT * FROM databaseStranger WHERE strangerName like '%' ||:searchName || '%'")
     fun search(searchName: String) : List<DatabaseStranger>
 
     @Query("DELETE FROM databaseStranger")

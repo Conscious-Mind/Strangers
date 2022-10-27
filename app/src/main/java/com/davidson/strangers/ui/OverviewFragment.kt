@@ -1,17 +1,18 @@
 package com.davidson.strangers.ui
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidson.strangers.MainActivity
 import com.davidson.strangers.adapter.RvStrangerViewAdapter
+import com.davidson.strangers.adapter.bindImage
 import com.davidson.strangers.databinding.FragmentOverviewBinding
 import com.davidson.strangers.util.LocationUtil
 import com.davidson.strangers.viewmodels.OverviewModelFactory
@@ -35,6 +36,8 @@ class OverviewFragment : Fragment() {
         binding = FragmentOverviewBinding.inflate(inflater, container, false)
 
         val overviewModelFactory = OverviewModelFactory(requireActivity().application)
+
+        var isSearchingThroughDb = false
 
         viewModel = ViewModelProvider(this, overviewModelFactory)[OverviewViewModel::class.java]
 
@@ -61,7 +64,14 @@ class OverviewFragment : Fragment() {
 
         viewModel.strangerList.observe(viewLifecycleOwner) {
             binding.showStranger.text = it.size.toString()
-            rvAdapterForHome.submitList(it)
+            if (it.isEmpty()) {
+                if (isSearchingThroughDb) {
+                    rvAdapterForHome.submitList(it)
+                }
+                isSearchingThroughDb = false
+            } else{
+                rvAdapterForHome.submitList(it)
+            }
         }
 
 //        viewModel.address.observe(viewLifecycleOwner) {
@@ -71,6 +81,7 @@ class OverviewFragment : Fragment() {
 //        }
 
         viewModel.location.observe(viewLifecycleOwner){
+//            Toast.makeText(this.activity, "Getting Location", Toast.LENGTH_SHORT).show()
             viewModel.getWeather(it)
         }
 
@@ -80,7 +91,23 @@ class OverviewFragment : Fragment() {
             val temp = "${it.temp.toInt()} °C"
             binding.tvWeatherTemp.text = temp
             binding.tvWeatherDesc.text = it.weatherDescription
+            bindImage(binding.ivWeatherHomeImg, getWeatherImgUrl(it.weatherIcon))
         }
+
+        binding.searchViewHome.setOnQueryTextListener(object: OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.searchInStrangersList(binding.searchViewHome.query.toString())
+                isSearchingThroughDb = true
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.searchInStrangersList(binding.searchViewHome.query.toString())
+                isSearchingThroughDb = true
+                return true
+            }
+
+        })
 
         locationUtil = LocationUtil.getInstance((activity as (MainActivity)))
 
@@ -109,6 +136,13 @@ class OverviewFragment : Fragment() {
             viewModel.location.postValue(it)
         }
     }
+
+    fun getWeatherImgUrl(iconCode: String) : String {
+        val icon = iconCode?:"r01d"
+        return "https://www.weatherbit.io/static/img/icons/${icon}.png"
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

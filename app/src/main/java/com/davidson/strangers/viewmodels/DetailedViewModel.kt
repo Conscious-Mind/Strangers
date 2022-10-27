@@ -37,7 +37,7 @@ class DetailedViewModel(strangerId: Long, app: Application) : AndroidViewModel(a
     fun getWeather(address: Address) {
         viewModelScope.launch {
             repository.getWeatherDetailsFromNetworkForDetailed(address.latitude, address.longitude,
-                Constants.API_WEATHER_KEY
+                Constants.API_WEATHER_KEY_2
             )
         }
     }

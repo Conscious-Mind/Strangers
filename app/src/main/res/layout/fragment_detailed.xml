@@ -129,11 +129,11 @@
             android:text="AQI"
             android:textColor="@color/white"
             android:textSize="8sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView9"
+            app:layout_constraintEnd_toStartOf="@+id/ivWeatherDetailedImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/ivWeatherDetailedImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -151,8 +151,8 @@
             android:textColor="@color/white"
             android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
-            app:layout_constraintStart_toStartOf="@+id/imageView9"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintStart_toStartOf="@+id/ivWeatherDetailedImg"
+            app:layout_constraintTop_toBottomOf="@+id/ivWeatherDetailedImg" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline11"

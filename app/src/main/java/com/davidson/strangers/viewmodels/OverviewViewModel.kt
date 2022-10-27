@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.davidson.strangers.database.getDatabase
 import com.davidson.strangers.repository.StrangerRepository
-import com.davidson.strangers.util.Constants.Companion.API_WEATHER_KEY
+import com.davidson.strangers.util.Constants.Companion.API_WEATHER_KEY_2
 import com.davidson.strangers.util.Constants.Companion.TIRED_TAG
 import kotlinx.coroutines.launch
 
@@ -43,7 +43,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     fun getWeather(location: Location) {
         viewModelScope.launch {
-            strangerRepository.getWeatherDetailsFromNetworkForHome(location.latitude, location.longitude, API_WEATHER_KEY)
+            strangerRepository.getWeatherDetailsFromNetworkForHome(location.latitude, location.longitude, API_WEATHER_KEY_2)
         }
+    }
+
+    fun searchInStrangersList(strangerName: String) {
+        strangerRepository.searchInDb(strangerName)
     }
 }

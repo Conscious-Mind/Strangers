@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.bumptech.glide.Glide.init
 import com.davidson.strangers.database.DatabaseStranger
 import com.davidson.strangers.database.StrangerDatabase
 import com.davidson.strangers.database.asDomainModel
@@ -49,7 +48,12 @@ class StrangerRepository(private val database: StrangerDatabase) {
 
     fun searchInDb(searchName: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            _strangers.postValue(database.strangerDao.search(searchName))
+            if (searchName == "") {
+                _strangers.postValue(database.strangerDao.getAllStrangerFromDb())
+            } else {
+                _strangers.postValue(database.strangerDao.search(searchName))
+            }
+
         }
     }
 
