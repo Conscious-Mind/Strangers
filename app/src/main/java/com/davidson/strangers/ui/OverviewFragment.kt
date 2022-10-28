@@ -161,7 +161,17 @@ class OverviewFragment : Fragment() {
             viewModel.weatherLoaded()
         }
 
+        binding.refreshWeatherBtn.setOnClickListener {
+            reloadWeather()
+        }
+
         return binding.root
+    }
+
+    private fun reloadWeather() {
+        Toast.makeText(activity, "Weather RELoading Started", Toast.LENGTH_SHORT).show()
+        handleLocation()
+        viewModel.weatherLoaded()
     }
 
     private fun handleLocation() {

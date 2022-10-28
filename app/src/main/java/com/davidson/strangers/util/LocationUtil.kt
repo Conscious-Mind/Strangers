@@ -7,18 +7,18 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationRequestCompat
-import androidx.core.location.LocationRequestCompat.Quality
 import com.google.android.gms.location.*
 
 
 private const val REQUEST_INTERVAL = 500L
+private const val PERMISSION_ID = 2222
 
 class LocationUtil private constructor(private val activity: AppCompatActivity) {
-    val PERMISSION_ID = 2222
+
 
     private val locationManger =
         activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -27,12 +27,12 @@ class LocationUtil private constructor(private val activity: AppCompatActivity) 
         LocationServices.getFusedLocationProviderClient(activity)
 
     private var locationRequest: LocationRequest = LocationRequest.Builder(
-        LocationRequest.PRIORITY_HIGH_ACCURACY,
+        Priority.PRIORITY_HIGH_ACCURACY,
         REQUEST_INTERVAL
     ).build()
 
-    var isLocationRequesting = false
-    lateinit var locationCallback: LocationCallback
+    private var isLocationRequesting = false
+    private lateinit var locationCallback: LocationCallback
 
     val isLocationUsable: Boolean
         get() = checkLocationPermission() && checkLocationEnabled()
@@ -43,11 +43,11 @@ class LocationUtil private constructor(private val activity: AppCompatActivity) 
 
     fun checkLocationPermission(): Boolean = (
             ActivityCompat.checkSelfPermission(
-                activity, android.Manifest.permission.ACCESS_COARSE_LOCATION
+                activity, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED ||
                     ActivityCompat.checkSelfPermission(
                         activity,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                        Manifest.permission.ACCESS_FINE_LOCATION
                     ) ==
                     PackageManager.PERMISSION_GRANTED)
 
@@ -102,7 +102,14 @@ class LocationUtil private constructor(private val activity: AppCompatActivity) 
         val geocoder = Geocoder(activity)
         var address: Address? = null
         try {
-            address = geocoder.getFromLocation(latitude, longitude, 1)?.get(0)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                geocoder.getFromLocation(latitude, longitude, 1) {
+                    address = it[0]
+                }
+            } else {
+                address = geocoder.getFromLocation(latitude, longitude, 1)?.get(0)
+            }
         } catch (e: Exception) {
             Log.i("LocationUtil", e.message.toString() ?: "ERROR")
         }
@@ -113,7 +120,13 @@ class LocationUtil private constructor(private val activity: AppCompatActivity) 
         val geocoder = Geocoder(activity)
         var address: Address? = null
         try {
-            address = geocoder.getFromLocationName(city, 1)?.get(0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                geocoder.getFromLocationName(city, 1) {
+                    address = it[0]
+                }
+            } else {
+                address = geocoder.getFromLocationName(city, 1)?.get(0)
+            }
         } catch (e: Exception) {
             Log.i("LocationUtil", e.message.toString() ?: "ERROR")
         }

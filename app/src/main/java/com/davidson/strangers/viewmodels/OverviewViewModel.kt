@@ -12,6 +12,8 @@ import com.davidson.strangers.util.Constants.Companion.API_WEATHER_KEY_2
 import com.davidson.strangers.util.Constants.Companion.TIRED_TAG
 import kotlinx.coroutines.launch
 
+
+
 class OverviewViewModel(application: Application) : AndroidViewModel(application) {
 
 
@@ -26,6 +28,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     val location = MutableLiveData<Location>()
 
     private var weatherLoaded = false
+
 
     init {
         viewModelScope.launch {
