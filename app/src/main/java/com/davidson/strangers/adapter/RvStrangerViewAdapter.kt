@@ -2,6 +2,7 @@ package com.davidson.strangers.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,19 +12,21 @@ import com.davidson.strangers.domain.StrangerPerson
 class RvStrangerViewAdapter :
     ListAdapter<StrangerPerson, RvStrangerViewAdapter.ItemViewHolder>(DiffUtilCallBack()) {
 
-    private var clickListener: ((strangerPerson: StrangerPerson) -> Unit)? = null
+    private var clickListener: ((imageView: ImageView, strangerPerson: StrangerPerson) -> Unit)? = null
 
 
     class ItemViewHolder private constructor(private val binding: StrangerSingleCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
+            position: Int,
             strangerPerson: StrangerPerson,
-            clickListener: ((strangerPerson: StrangerPerson) -> Unit)?
+            clickListener: ((imageView: ImageView, strangerPerson: StrangerPerson) -> Unit)?
         ) {
             binding.stranger = strangerPerson
+            binding.ivPersonImage.transitionName = "stranger${position}"
             clickListener?.let {
                 binding.root.setOnClickListener {
-                    clickListener.invoke(strangerPerson)
+                    clickListener.invoke(binding.ivPersonImage, strangerPerson)
                 }
             }
         }
@@ -38,7 +41,7 @@ class RvStrangerViewAdapter :
     }
 
 
-    fun setOnclickListenerR(clickListener: ((strangerPerson: StrangerPerson) -> Unit)) {
+    fun setOnclickListenerR(clickListener: ((imageView: ImageView, strangerPerson: StrangerPerson) -> Unit)) {
         this.clickListener = clickListener
     }
 
@@ -48,7 +51,7 @@ class RvStrangerViewAdapter :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        return holder.bind(getItem(position), clickListener)
+         holder.bind(position, getItem(position), clickListener)
     }
 }
 

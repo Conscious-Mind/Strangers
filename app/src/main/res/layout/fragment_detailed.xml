@@ -196,6 +196,7 @@
         <ImageView
             android:id="@+id/ivDetailedPicture"
             android:layout_width="120dp"
+            android:transitionName="StrangerDetailed"
             android:layout_height="180dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"

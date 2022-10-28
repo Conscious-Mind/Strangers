@@ -1,6 +1,7 @@
 package com.davidson.strangers.ui
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,25 @@ class DetailedFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDetailedBinding.inflate(inflater, container, false)
+
+        // Shared Transistion View
+
+        val animationDetailedImage = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        ).also {
+            it.duration = 500L
+
+        }
+        val animationToOverviewImage = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        ).also {
+            it.duration = 2000L
+            it.startDelay = 1000L
+        }
+
+        sharedElementEnterTransition = animationDetailedImage
+        sharedElementReturnTransition = animationDetailedImage
+
 
         val args: DetailedFragmentArgs by navArgs()
 
