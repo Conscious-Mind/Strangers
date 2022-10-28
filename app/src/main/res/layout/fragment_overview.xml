@@ -40,9 +40,10 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchViewHome"
+            app:layout_constraintVertical_bias="0.0"
             tools:itemCount="16"
             tools:listitem="@layout/stranger_single_card" />
 
@@ -61,15 +62,28 @@
 
         <TextView
             android:id="@+id/tvWeatherLocationHome"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Chennai, India"
+            android:layout_marginEnd="64dp"
+            android:text="Unavailable"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/tvWeatherTemp"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
             app:layout_constraintTop_toBottomOf="@+id/digitalClock" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/refreshWeatherBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_baseline_refresh_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWeatherLocationHome"
+            app:layout_constraintStart_toEndOf="@+id/tvWeatherLocationHome"
+            app:layout_constraintTop_toTopOf="@+id/tvWeatherLocationHome" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -109,14 +123,14 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchViewHome"
             android:layout_width="0dp"
-            app:queryBackground="@color/transparent"
-            android:background="@drawable/search_bar_lay"
-            app:iconifiedByDefault="false"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@drawable/search_bar_lay"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:queryBackground="@color/transparent"
             app:queryHint="Search for Name" />
 
         <androidx.constraintlayout.widget.Guideline

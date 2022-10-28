@@ -10,6 +10,8 @@ import android.location.LocationManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.location.LocationRequestCompat
+import androidx.core.location.LocationRequestCompat.Quality
 import com.google.android.gms.location.*
 
 
