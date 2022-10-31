@@ -21,6 +21,7 @@ import com.davidson.strangers.adapter.RvStrangerViewAdapter
 import com.davidson.strangers.adapter.bindImage
 import com.davidson.strangers.databinding.FragmentOverviewBinding
 import com.davidson.strangers.util.LocationUtil
+import com.davidson.strangers.util.isNetworkAvailable
 import com.davidson.strangers.viewmodels.OverviewModelFactory
 import com.davidson.strangers.viewmodels.OverviewViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -109,9 +110,6 @@ class OverviewFragment : Fragment() {
 //            Toast.makeText(activity,"Tired", Toast.LENGTH_SHORT).show()
         }
 
-        if (!(activity as MainActivity).isInternetAvailable()) {
-            Toast.makeText(this.activity, "Internet Unavailable", Toast.LENGTH_SHORT).show()
-        }
 
 
         viewModel.strangerList.observe(viewLifecycleOwner) {
@@ -180,14 +178,22 @@ class OverviewFragment : Fragment() {
     }
 
     private fun handleLocation() {
-        if (locationUtil.checkLocationPermission()) {
-            if (locationUtil.checkLocationEnabled()) {
-                updateGps()
+        try {
+            if (isNetworkAvailable(requireContext())) {
+                if (locationUtil.checkLocationPermission()) {
+                    if (locationUtil.checkLocationEnabled()) {
+                        updateGps()
+                    } else {
+                        Toast.makeText(activity, "Turn On the the Location", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                }
             } else {
-                Toast.makeText(activity, "Turn On the the Location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Internet Unavailable", Toast.LENGTH_SHORT).show()
             }
-        } else {
-            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+        } catch (e: Exception) {
+            Toast.makeText(activity, "Error while gettingLocation", Toast.LENGTH_SHORT).show()
         }
     }
 

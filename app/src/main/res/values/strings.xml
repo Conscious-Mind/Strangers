@@ -26,4 +26,5 @@
     <string name="cell_no_title">Cell:</string>
     <string name="phone_no_title">Phone:</string>
     <string name="email_title">Email:</string>
+    <string name="refresh_btn_text">Refresh Button For Weather</string>
 </resources>
