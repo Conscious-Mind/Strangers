@@ -35,6 +35,7 @@ interface RandomUserService {
     ): TestCase
 }
 
+
 interface WeatherService {
     @GET("v2.0/current")
     suspend fun getWeatherFromNetwork(

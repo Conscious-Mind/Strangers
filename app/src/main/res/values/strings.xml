@@ -4,4 +4,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="permission_denied_msg">Permission not Granted\n to settings to Grant Permission</string>
     <string name="settings">App Settings</string>
+    <string name="welcome_davidson">Welcome Davidson!</string>
+    <string name="aqi_temp">110</string>
+    <string name="weather_status_temp">Unavailable</string>
+    <string name="weather_temperature_temp">32°C</string>
+    <string name="aqi_title">AQI</string>
+    <string name="weather_climate_status_temp">Cloudy</string>
+    <string name="name_title">Name:</string>
+    <string name="detailed_profile_title">Detailed Profile</string>
+    <string name="age_title">Age:</string>
+    <string name="gender_title">Gender:</string>
+    <string name="nationality_title">Nationality:</string>
+    <string name="location_title">Location</string>
+    <string name="house_no_title">No:</string>
+    <string name="street_name_title">Street:</string>
+    <string name="city_name_title">City:</string>
+    <string name="state_name_title">State:</string>
+    <string name="country_name_title">Country:</string>
+    <string name="postcode_title">PostCode:</string>
+    <string name="contact_title">Contact</string>
+    <string name="cell_no_title">Cell:</string>
+    <string name="phone_no_title">Phone:</string>
+    <string name="email_title">Email:</string>
 </resources>

@@ -69,6 +69,8 @@ class DetailedFragment : Fragment() {
 
 
 
+
+
         viewModel.address.observe(viewLifecycleOwner) {
             Toast.makeText(this.activity, "Getting Location", Toast.LENGTH_SHORT).show()
             viewModel.getWeather(it)

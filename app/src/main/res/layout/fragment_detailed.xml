@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="110"
+            android:text="@string/aqi_temp"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textView14"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="Unavailable"
+            android:text="@string/weather_status_temp"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/digitalClock3"
@@ -92,9 +92,8 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="07:39 PM"
             android:textColor="@color/white"
-            android:textSize="25dp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -104,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Welcome Davidson!"
+            android:text="@string/welcome_davidson"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toTopOf="parent" />
@@ -114,9 +113,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="32°C"
+            android:text="@string/weather_temperature_temp"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/tvWeatherAqiDetailed" />
 
@@ -126,14 +125,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="AQI"
+            android:text="@string/aqi_title"
             android:textColor="@color/white"
-            android:textSize="8sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/ivWeatherDetailedImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivWeatherDetailedImg"
+            android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -147,9 +147,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:text="Cloudy"
+            android:text="@string/weather_climate_status_temp"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="@+id/ivWeatherDetailedImg"
             app:layout_constraintTop_toBottomOf="@+id/ivWeatherDetailedImg" />
@@ -170,14 +170,14 @@
             android:id="@+id/imageView11"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView10"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/detailed_bg" />
@@ -196,11 +196,11 @@
         <ImageView
             android:id="@+id/ivDetailedPicture"
             android:layout_width="120dp"
-            android:transitionName="StrangerDetailed"
             android:layout_height="180dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:scaleType="fitCenter"
+            android:transitionName="StrangerDetailed"
             app:layout_constraintStart_toStartOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="@+id/imageView11"
             tools:src="@tools:sample/avatars" />
@@ -225,14 +225,15 @@
             app:layout_constraintHorizontal_bias="0.096"
             app:layout_constraintStart_toEndOf="@+id/textView23"
             app:layout_constraintTop_toTopOf="@+id/textView23"
-            tools:text="India" />
+            tools:text="@string/hello_blank_fragment" />
+
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Name:"
+            android:text="@string/name_title"
             app:layout_constraintStart_toStartOf="@+id/textView19"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -242,7 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Detailed Profile"
+            android:text="@string/detailed_profile_title"
             app:layout_constraintEnd_toEndOf="@+id/imageView11"
             app:layout_constraintHorizontal_bias="0.063"
             app:layout_constraintStart_toEndOf="@+id/ivDetailedPicture"
@@ -253,7 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Age:"
+            android:text="@string/age_title"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -262,7 +263,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Gender:"
+            android:text="@string/gender_title"
             app:layout_constraintStart_toStartOf="@+id/textView20"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -281,7 +282,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Nationality:"
+            android:text="@string/nationality_title"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -291,7 +292,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Location"
+            android:text="@string/location_title"
             app:layout_constraintStart_toStartOf="@+id/ivDetailedPicture"
             app:layout_constraintTop_toBottomOf="@+id/ivDetailedPicture" />
 
@@ -300,7 +301,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="No:"
+            android:text="@string/house_no_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -319,7 +320,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Street:"
+            android:text="@string/street_name_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
@@ -337,7 +338,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="City:"
+            android:text="@string/city_name_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
@@ -355,7 +356,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="State:"
+            android:text="@string/state_name_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -373,7 +374,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Country:"
+            android:text="@string/country_name_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
@@ -382,7 +383,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="PostCode:"
+            android:text="@string/postcode_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
@@ -409,7 +410,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Contact"
+            android:text="@string/contact_title"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
@@ -418,7 +419,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Cell:"
+            android:text="@string/cell_no_title"
             app:layout_constraintStart_toStartOf="@+id/textView37"
             app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
@@ -427,7 +428,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Phone:"
+            android:text="@string/phone_no_title"
             app:layout_constraintStart_toStartOf="@+id/textView37"
             app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
@@ -436,7 +437,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Email:"
+            android:text="@string/email_title"
             app:layout_constraintStart_toStartOf="@+id/textView39"
             app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
@@ -479,16 +480,6 @@
             app:layout_constraintGuide_begin="367dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:id="@+id/fabAddFav"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/heart_btn_bg_home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
