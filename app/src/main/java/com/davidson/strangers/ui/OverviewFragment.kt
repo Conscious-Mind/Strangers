@@ -3,6 +3,7 @@ package com.davidson.strangers.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -178,10 +179,19 @@ class OverviewFragment : Fragment() {
     }
 
     private fun handleLocation() {
+        Log.d("tired", "Inside Handle Location")
+
         try {
+            Log.d("tired", "Inside try Handle lcoation")
+
             if (isNetworkAvailable(requireContext())) {
+                Log.d("tired", "Inside Network")
                 if (locationUtil.checkLocationPermission()) {
+                    Log.d("tired", "Inside checkLocationPermission")
+
                     if (locationUtil.checkLocationEnabled()) {
+                        Log.d("tired", "Inside checkLocationEnabled")
+
                         updateGps()
                     } else {
                         Toast.makeText(activity, "Turn On the the Location", Toast.LENGTH_SHORT).show()
@@ -193,9 +203,10 @@ class OverviewFragment : Fragment() {
                 Toast.makeText(activity, "Internet Unavailable", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
-            Toast.makeText(activity, "Error while gettingLocation", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Error while gettingLocation "+e.message, Toast.LENGTH_SHORT).show()
         }
     }
+
 
     fun updateGps() {
         Toast.makeText(activity, "Getting Location from GPS", Toast.LENGTH_SHORT).show()

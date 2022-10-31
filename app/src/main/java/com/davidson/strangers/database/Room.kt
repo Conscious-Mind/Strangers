@@ -21,7 +21,7 @@ interface StrangerDao {
     @Query("DELETE FROM databaseStranger")
     fun deleteAll()
 
-    @Query("DELETE from sqlite_sequence WHERE name = 'databaseStranger'")
+    @Query("DELETE from sqlite_sequence WHERE name = 'databaseBreakingBad'")
     fun resetAutoInc()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
